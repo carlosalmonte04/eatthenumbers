@@ -1,0 +1,312 @@
+  <div class="food-wrapper">
+
+    <div class="food-name-header animated fadeInUp" style="display: none">
+      <h2 id="fullNameOfFood"></h2>
+    </div>
+
+    <div class="serving-size animated fadeInDown" style="display: none">
+      <h2 id="servingSize"></h2>
+    </div>
+
+    <div class="macro-header calories">
+      <span>Calories:</span>
+      <span>
+        <h3 id="calories">2345</h3>
+        </span>
+    </div>
+
+    <div class="macro-header protein">
+      <span>Protein:</span>
+      <span>
+        <h3 id="protein">102</h3>
+        </span>
+    </div>
+
+    <div class="macro-header fat">
+      <span>Fat:</span>
+      <span>
+        <h3 id="fat">20</h3>
+        </span>
+    </div>
+
+    <!-- <div class="micro-header">
+      <span>Fiber:</span>
+      <span>
+        <h3 id="fiber"></h3>
+        </span>
+    </div>
+
+    <div class="micro-header">
+      <span>Sugar:</span>
+      <span>
+        <h3 id="sugar"></h3>
+        </span>
+    </div>
+
+    <div class="header">
+      <span>Calcium:</span>
+      <span>
+        <h3 id="calcium"></h3>
+        </span>
+    </div>
+
+    <div class="header">
+      <span>Iron:</span>
+      <span>
+        <h3 id="iron"></h3>
+        </span>
+    </div>
+
+    <div class="header">
+      <span>Sodium:</span>
+      <span>
+        <h3 id="sodium"></h3>
+        </span>
+    </div>
+
+    <div class="header">
+      <span>Vitamin C:</span>
+      <span>
+        <h3 id="C"></h3>
+        </span>
+    </div>
+
+    <div class="micro-header">
+      <span>Carbohydrates:</span>
+      <span>
+        <h3 id="carbs"></h3>
+        </span>
+    </div>
+
+    <div class="header">
+      <span>Vitamin A:</span>
+      <span>
+        <h3 id="A"></h3>
+        </span>
+    </div>
+
+    <div class="header">
+      <span>Saturated Fat:</span>
+      <span>
+        <h3 id="saturatedFat"></h3>
+        </span>
+    </div>
+
+    <div class="header">
+      <span>Trans Fat:</span>
+      <span>
+        <h3 id="transFat"></h3>
+        </span>
+    </div>
+
+    <div class="micro-header">
+      <span>Cholesterol:</span>
+      <span>
+        <h3 id="cholesterol"></h3>
+        </span>
+    </div> -->
+
+
+<!--     <div class="canvas-container">
+    <canvas id="fatCarbsAndProteinChartCanvas"></canvas>
+  </div>  
+
+  <div class="canvas-container">
+    <canvas id="fatDistributionCanvas"></canvas>
+  </div>   -->
+
+
+
+
+
+  </div>
+
+
+
+
+
+
+<script>
+    // $('#calories')
+    // $('#protein')
+    // $('#fat')
+    // $('#carbs')
+
+displayReport = function(foodNutrients) {
+  // food = FULL REPORT OF FOOD SELECTED 
+
+
+  nutrients = {
+    'water': [0, 'g'],
+    'energy': [0, 'kcal'],
+    'protein': [0, 'g'],
+    'total lipid (fat)': [0, 'g'],
+    'ash': [0, 'g'],
+    'carbohydrate, by difference': [0, 'g'],
+    'sugars, total': [0, 'g'],
+    'sucrose': [0, 'g'],
+    'glucose (dextrose)': [0, 'g'],
+    'fructose': [0, 'g'],
+    'lactose': [0, 'g'],
+    'maltose': [0, 'g'],
+    'galactose': [0, 'g'],
+    'calcium, ca': [0, 'mg'],
+    'iron, fe': [0, 'mg'],
+    'magnesium, mg': [0, 'mg'],
+    'phosphorus, p': [0, 'mg'],
+    'potassium, k': [0, 'mg'],
+    'sodium, na': [0, 'mg'],
+    'zinc, zn': [0, 'mg'],
+    'copper, cu': [0, 'mg'],
+    'manganese, mn': [0, 'mg'],
+    'fatty acids, total saturated': [0, 'g'],
+    '4:0': [0, 'g'],
+    '6:0': [0, 'g'],
+    '8:0': [0, 'g'],
+    '10:0': [0, 'g'],
+    '12:0': [0, 'g'],
+    '14:0': [0, 'g'],
+    '15:0': [0, 'g'],
+    '16:0': [0, 'g'],
+    '17:0': [0, 'g'],
+    '18:0': [0, 'g'],
+    '20:0': [0, 'g'],
+    '22:0': [0, 'g'],
+    '24:0': [0, 'g'],
+    'fatty acids, total monounsaturated': [0, 'g'],
+    '14:1': [0, 'g'],
+    '15:1': [0, 'g'],
+    '16:1 undifferentiated': [0, 'g'],
+    '16:1 c': [0, 'g'],
+    '16:1 t': [0, 'g'],
+    '17:1': [0, 'g'],
+    '18:1 undifferentiated': [0, 'g'],
+    '18:1 c': [0, 'g'],
+    '18:1 t': [0, 'g'],
+    '20:1': [0, 'g'],
+    '22:1 undifferentiated': [0, 'g'],
+    '22:1 c': [0, 'g'],
+    '22:1 t': [0, 'g'],
+    '24:1 c': [0, 'g'],
+    'fatty acids, total polyunsaturated': [0, 'g'],
+    '18:2 undifferentiated': [0, 'g'],
+    '18:2 n-6 c,c': [0, 'g'],
+    '18:2 clas': [0, 'g'],
+    '18:2 t not further defined': [0, 'g'],
+    '18:3 undifferentiated': [0, 'g'],
+    '18:3 n-3 c,c,c (ala)': [0, 'g'],
+    '18:3 n-6 c,c,c': [0, 'g'],
+    '18:4': [0, 'g'],
+    '20:2 n-6 c,c': [0, 'g'],
+    '20:3 undifferentiated': [0, 'g'],
+    '20:3 n-6': [0, 'g'],
+    '20:4 undifferentiated': [0, 'g'],
+    '20:5 n-3 (epa)': [0, 'g'],
+    '22:4': [0, 'g'],
+    '22:5 n-3 (dpa)': [0, 'g'],
+    '22:6 n-3 (dha)': [0, 'g'],
+    'fatty acids, total trans': [0, 'g'],
+    'fatty acids, total trans-monoenoic': [0, 'g'],
+  }
+
+  nutrientList = Object.keys(nutrients);
+
+
+
+  for (var i = 0; i <= foodNutrients.length - 1; i++) {
+    
+    nameOfNutrientInJSONData = foodNutrients[i].name.toString().toLowerCase()
+
+    if (nameOfNutrientInJSONData in nutrients && nutrients[nameOfNutrientInJSONData][1] == foodNutrients[i].unit) {
+
+      nutrients[nameOfNutrientInJSONData][0] = [foodNutrients[i].measures[0].value]
+    }
+  };
+
+
+nutrients['total fat calculated'] = [(nutrients['fatty acids, total monounsaturated'][0] + nutrients['fatty acids, total polyunsaturated'][0] + nutrients['fatty acids, total saturated'][0] + nutrients['fatty acids, total trans'][0] + nutrients['fatty acids, total trans-monoenoic'][0]), 'g']
+
+
+  parent.ms.clear()
+
+
+$('.food-name-header').html($foodDescription.name);  
+$('.food-name-header').show();
+$('.serving-size').text($foodNutrientsFromJSON[0].measures[0].qty.toString() + " " + $foodNutrientsFromJSON[0].measures[0].label);
+$('.serving-size').show();
+widgetUsed('calories', parseInt(nutrients['energy']));
+widgetUsed('protein', parseInt(nutrients['protein']));
+widgetUsed('fat', parseInt(nutrients['total lipid (fat)']));
+
+
+
+
+
+// CARBOHYDRATES + FAT + PROTEIN CHART
+// var fatCarbsAndProteinChartCanvas = document.getElementById("fatCarbsAndProteinChartCanvas");
+
+// var fatCarbsAndProteinChart = new Chart(fatCarbsAndProteinChartCanvas,{
+//     type: 'pie',
+//     data: {
+//     datasets: [{
+//         data: [nutrients['carbohydrate, by difference'][0] / (nutrients['total lipid (fat)'][0] + nutrients['carbohydrate, by difference'][0] + nutrients['total lipid (fat)'][0]) * 100, nutrients['total lipid (fat)'][0] / (nutrients['total lipid (fat)'][0] + nutrients['carbohydrate, by difference'][0] + nutrients['total lipid (fat)'][0]) * 100, nutrients['protein'][0] / (nutrients['total lipid (fat)'][0] + nutrients['carbohydrate, by difference'][0] + nutrients['protein'][0]) * 100],
+//             backgroundColor: [
+//             '#e73608',
+//             '#1416ad',
+//             '#666',
+//         ],
+//     }],
+//     labels: [
+//         'Carbohydrates',
+//         'Fat',
+//         'Protein',
+//     ],
+//   },
+    
+//     options: {
+//       responsive: true,
+//       maintainAspectRatio: false,
+//     },
+// });
+// // CARBOHYDRATES + FAT + PROTEIN CHART ENDS
+
+
+
+// // FAT DISTRIBUTION CHART
+// var fatDistributionCanvas = document.getElementById("fatDistributionCanvas");
+
+// var fatDistributionChart = new Chart(fatDistributionCanvas,{
+//     type: 'pie',
+//     data: {
+//     datasets: [{
+//         data: [(nutrients['fatty acids, total monounsaturated'][0] / nutrients['total fat calculated'][0]) * 100, (nutrients['fatty acids, total polyunsaturated'][0] / nutrients['total fat calculated'][0]) * 100, (nutrients['fatty acids, total saturated'][0] / nutrients['total fat calculated'][0]) * 100, (nutrients['fatty acids, total trans'][0] / nutrients['total fat calculated'][0]) * 100, (nutrients['fatty acids, total trans-monoenoic'][0] / nutrients['total fat calculated'][0]) * 100],
+//             backgroundColor: [
+//             '#e73608',
+//             '#1416ad',
+//             '#666',
+//             '#000000',
+//             '#FFFFFF',
+//         ],
+//     }],
+//     labels: [
+//         'monounsaturated',
+//         'polyunsaturatedat',
+//         'saturated',
+//         'trans',
+//         'trans-monoenoic',
+//     ],
+//   },
+    
+//     options: {
+//       responsive: true,
+//       maintainAspectRatio: false,
+//     },
+// });
+
+}
+
+</script>
+
+<script>
+
+</script>

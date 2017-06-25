@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+html,
+body {
+font-family: 'Roboto';
+  color: #333;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+  height: 100%;
+}
+
+iframe {
+  width: 100%;
+  height: 70%;
+}
+p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+input {
+  height: 100%;
+}
+
+a {
+  color: #000;
+
+  &:visited {
+    color: #666;
+  }
+
+  &:hover {
+    color: #fff;
+    background-color: #000;
+  }
+}
+h1, h2, h3, h4, h5, h6, p, a, span, {
+font-family: 'Roboto', sans-serif;
+}
+h1 {
+  font-size: 6em;
+}
+th {
+  padding-bottom: 5px;
+}
+
+td {
+  padding: 0 5px 7px;
+}
+
+div {
+  &.field, &.actions {
+    margin-bottom: 10px;
+  }
+}
+
+#notice {
+  color: green;
+}
+
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+.main-wrapper {
+  margin: 150px 150px 50px 150px;
+  height: 100%;
+  text-align: center;
+  position: relative;
+  z-index: 9999;
+}
+.no-margin-top-23-left {
+  margin: 0px 33px 33px 23px;
+}
+
+.outter-wrapper {
+  width: 90%;
+  height: 100%;
+}
+.outter-container {
+  margin: 10px 140px 10px 140px;
+}
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px 7px 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+
+  h2 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: 12px;
+    margin: -7px -7px 0;
+    background-color: #c00;
+    color: #fff;
+  }
+
+  ul li {
+    font-size: 12px;
+    list-style: square;
+  }
+}
+
+label {
+  display: block;
+}
+.input-container {
+}
+.input-container > div {
+  height: 100%;
+}
+.header {
+  display: inline-block;
+}
+
+.inner-container {
+  height: 100%;
+}
+
+.canvas-container {
+  display: inline-block;
+  height: 56%;
+  width: 35%;
+}
+input {
+  text-align: center;
+}
+input::-webkit-input-placeholder {
+   text-align: center;
+   color: #c2afaf;
+   font-weight: 100;
+}
+
+input:-moz-placeholder { /* Firefox 18- */
+   text-align: center;  
+   color: #c2afaf;
+   font-weight: 100;
+}
+
+input::-moz-placeholder {  /* Firefox 19+ */
+   text-align: center;  
+   color: #c2afaf;
+   font-weight: 100;
+}
+
+input:-ms-input-placeholder {  
+   text-align: center; 
+   color: #c2afaf;
+   font-weight: 100;
+}
+.highest-z-index{
+  z-index: 9999;
+}
+.title {
+  color: white;
+}
+.food-wrapper {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  height: 100%;
+  width: 97%;
+  margin: 0px 22px 10px 22px;
+  color: white;
+  z-index: -9999
+}
+.macro-header {
+  font-size: 5em;
+  font-weight: 900;
+}
+.macro-header span {
+  display: inline-block;
+}
+.micro-header {
+
+}
+.calories {
+  position: absolute;
+  top: -6%;
+  left: 0%;
+}
+.calories span > h3{
+  color: #ffb500;
+}
+.protein {
+  position: absolute;
+  top: -6%;
+  right: 0%;
+}
+.protein span > h3{
+  color: blue;
+}
+.fat {
+  position: absolute;
+  bottom: 22%;
+  left: 44%;
+}
+.fat span > h3{
+  color: yellow;
+}
+.food-name-header{
+  font-size: 4em;
+  width: 100%;
+  top: 38%;
+  position: absolute;
+  text-align: center;
+  color: yellow;
+  line-height: 60px;
+  background-color: #070797;
+}
+.serving-size {
+  font-size: 4em;
+  width: 100%;
+  text-align: center;
+  color: red;
+  line-height: 60px;
+  display: block;
+  position: absolute;
+  top: 2%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

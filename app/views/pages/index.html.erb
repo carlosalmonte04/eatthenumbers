@@ -1,0 +1,258 @@
+<style>
+  
+.fullscreen-bg {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: -100;
+}
+
+.fullscreen-bg__video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-aspect-ratio: 16/9) {
+  .fullscreen-bg__video {
+    height: 300%;
+    top: -100%;
+  }
+}
+
+@media (max-aspect-ratio: 16/9) {
+  .fullscreen-bg__video {
+    width: 300%;
+    left: -100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .fullscreen-bg {
+    background: url("<%= asset_path('video.mp4') %>") center center / cover no-repeat;
+  }
+
+  .fullscreen-bg__video {
+    display: none;
+  }
+}
+</style>
+<p id="notice"><%= notice %></p>
+
+
+<div class="main-wrapper">
+<h1 class="title">Eat The Numbers</h1>
+  <div id="input-holder" class="outter-container animated slideInUp" style="display: none;">
+      <div class="input-container">
+        <div class="loading animated flipOutX" style="display: none">
+          <h1>Cooking Report</h1>
+        </div>
+        <input id="magicsuggest" type="text">
+      </div>
+  </div>
+
+  <div class="">
+  <div id="selection-holder">
+    
+  </div>
+</div>
+
+<!-- <iframe id="foodDisplay" src="" frameborder="0"></iframe> -->
+
+</div>
+
+
+
+
+<div class="fullscreen-bg">
+    <video loop muted autoplay poster="img/videoframe.jpg" class="fullscreen-bg__video">
+        <source src="video/big_buck_bunny.webm" type="video/webm">
+        <source src="<%= asset_path('video.mp4') %>" type="video/mp4">
+        <source src="video/big_buck_bunny.ogv" type="video/ogg">
+    </video>
+</div>
+<script>
+
+$newData = ''
+
+
+// BASE FOR AJAXREQUEST
+var floorUrl = 'http://api.nal.usda.gov/ndb/search/?format=json&q='
+var standarReferenceUrl = '&sort=r&max=30&offset=0&api_key=Dd2cDdK3zCP6teHFkZk06XRTq4bgC1kMo3NPnLxm'
+
+// BASE FOR AJAXREQUEST ENDS
+
+
+function throttle(f, delay){
+    var timer = null;
+    return function(){
+        var context = this, args = arguments;
+        clearTimeout(timer);
+        timer = window.setTimeout(function(){
+            f.apply(context, args);
+        },
+        delay || 800);
+    };
+}
+
+
+// MAIN SEARCH INPUT INITIALIZE
+var ms = $('#magicsuggest').magicSuggest({
+  maxSelection: 1,
+  mode: 'remote',
+  method: 'get',
+  cls: 'animated highest-z-index',
+  useZebraStyle: true,
+  allowFreeEntries: false,
+  selectionCls: '',
+  typeDelay: 2,
+  hideTrigger: true,
+  valueField: 'ndbno',
+  placeholder: 'Search Food Database...',
+  expandOnFocus: false,
+  resultAsString: true,
+  selectionRenderer: function(data){
+    return '<span class="i" src=""/></span>'
+  },
+  data: [],
+  
+});
+// MAIN SEARCH INPUT INITIALIZE ENDS
+
+
+var inputFromUserElement = $('.ms-sel-ctn input')
+var inputFromUserElementDropdown = $('.ms-res-ctn .dropdown-menu')
+
+
+
+// KEYUP ON SEARCH BAR FUNCTION
+$(ms).on('keyup', throttle(function(){
+
+  var inputFromUser = $('.ms-sel-ctn input').val()
+
+  var cleanedData = [];
+
+
+
+  // IF INPUT IS OVER 2 CHARACTERS LONG TO AVOID MAKING INVALID QUERIES
+  if(inputFromUser.length <=2) {
+    cleanedData = []
+    ms.setData(cleanedData)
+    return
+  }
+
+    // START QUERY FROM STANDARD FOOD REFERENCE
+    var rawFoodData = $.getJSON(floorUrl + inputFromUser + standarReferenceUrl, function(data) {})
+
+    // DATA FROM QUERY COMES WITH EXTRA INFORMATION THAT IS NOT NEEDED.
+    // ON QUERY SUCCESS ONLY THE DATA THAT IS NEEDED IS TAKEN FROM QUERY AND PUSHED TO cleanedData
+        .always(function() {
+
+          console.log('standar reference callback')
+
+          // IF NO ERRORS FROM QUERY PROCCEED WITH CLEANING QUERY DATA
+          if (!('errors' in rawFoodData.responseJSON)) {
+
+            for(var i = 0; i < rawFoodData.responseJSON.list.item.length; i++) {
+                  
+              cleanedData.push(rawFoodData.responseJSON.list.item[i])
+
+            };
+            ms.setData(cleanedData);
+            ms.expand();
+
+          }
+      });
+
+
+
+  $newData = cleanedData
+
+}));
+
+
+// IFRAME FUNCTIONALITY BEGINS
+// QUERY NUTRIENTS OF FOOD SELECTED BY USER
+var foodReportBaseUrl = 'https://api.nal.usda.gov/ndb/V2/reports?ndbno='  
+var foodReportCeilingUrl = '&type=f&format=json&api_key=Dd2cDdK3zCP6teHFkZk06XRTq4bgC1kMo3NPnLxm'
+
+// GLOBAL SCOPE TO HAVE SELECTED FOOD SAVED AND AVAILABLE FOR ALL FUNCTIONS
+$food = ''
+$foodNutrientsFromJSON = ''
+$foodDescription = ''
+
+
+// ON SELECTION CHANGE
+$(ms).on('selectionchange', function(e,m){
+
+  $('.loading').toggleClass('flipOutX')
+  $('.loading').toggleClass('flipInX')
+
+  if (ms.getValue()[0] != undefined) {
+
+    var catalogNumberOfFoodSelectedByUser = ms.getValue()[0] 
+
+    // QUERY OF FOOD REPORT
+    var food = $.getJSON(foodReportBaseUrl + catalogNumberOfFoodSelectedByUser + foodReportCeilingUrl, function(data) {})
+
+        .always(function() {
+
+          $food = food
+          $foodNutrientsFromJSON = $food.responseJSON.foods[0].food.nutrients
+          $foodDescription = $food.responseJSON.foods[0].food.desc
+
+          displayReport($foodNutrientsFromJSON)
+
+        });
+  }
+
+});
+
+
+
+// TYPED ANIMATION
+  // $(function(){
+  //   $(inputFromUserElement).typed({
+  //     strings: ["Taco", "Steak", "Sushi", ""],
+  //     typeSpeed: 10
+  //   });
+  // });
+
+
+  function widgetUsed(id, number, string) {
+  $("#" + id).prop('Counter',0).animate({
+  Counter: number
+  }, {
+  duration: 800,
+  easing: 'swing',
+  step: function (now) {
+  $("#" + id).text(now.toFixed(0));
+  }
+  });
+  };
+  
+  $(".w-refresh").click(function(){
+  var counter = $(this).closest(".ultra-widget").data("counter");
+  var counter_id = $(this).closest(".ultra-widget").attr("id");
+  widgetUsed(counter_id, counter);
+  });
+
+
+
+
+
+window.onload = function() {
+  $('#input-holder').show();
+  $('#food-report-holder').show();
+
+}
+
+  </script>
+  <div id="food-report-holder" class="animated fadeIn" style="display: none">
+<%= render partial: 'foods/food' %>
+</div>
