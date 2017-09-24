@@ -1,24 +1,15 @@
 # README
+This is a small web application that allows users to search the USDA database and get responsive feedback according to the results.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project showcases ability to to make AJAX calls and manipulate the DOM according to response. 
 
-Things you may want to cover:
+To demo please visit http://eatthenumbers.herokuapp.com/ -sitting on a free Heroku dyno which might take a little longer to serve the page.
 
-* Ruby version
+Things to improve include:
+  -Project not using backend. 
+  -If continue to maintain consider using React.
+  -Aesthetics.
+  -Refactoring.
+  -UX/UI.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Thanks for stopping by!
