@@ -6,10 +6,10 @@ This project showcases ability to to make AJAX calls and manipulate the DOM acco
 To demo please visit http://eatthenumbers.herokuapp.com/ -sitting on a free Heroku dyno which might take a little longer to serve the page.
 
 Things to improve include:
-  -Project not using backend. 
-  -If continue to maintain consider using React.
-  -Aesthetics.
-  -Refactoring.
-  -UX/UI.
+  - Project not using backend. 
+  - If continue to maintain consider using React.
+  - Aesthetics.
+  - Refactoring.
+  - UX/UI.
 
 Thanks for stopping by!
